@@ -20,6 +20,8 @@ jobs:
         # установка зависимостей
         pip install -r api_yamdb/requirements.txt 
     - name: Test with flake8 and django tests
+      env:
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
       run: |
         # запуск проверки проекта по flake8
         python -m flake8
