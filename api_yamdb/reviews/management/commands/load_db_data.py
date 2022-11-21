@@ -1,13 +1,10 @@
 import os
-
 from csv import DictReader
-from django.core.management import BaseCommand
+
 from django.conf import settings
-
-from reviews.models import (Category, Comment, Genre, GenreTitle, Review,
-                            Title)
+from django.core.management import BaseCommand
+from reviews.models import Category, Comment, Genre, GenreTitle, Review, Title
 from users.models import User
-
 
 category_file = os.path.join(
     settings.BASE_DIR,
