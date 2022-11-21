@@ -23,8 +23,14 @@ jobs:
       run: |
         # запуск проверки проекта по flake8
         python -m flake8
+        # создаем пустой файл .env
+        touch infra/.env
+        # сохраняем в ней SECRET_KEY
+        echo "${{ secrets.SECRET_KEY }}" > infra/.env
         # запустить написанные тесты
         pytest
+        # удаляем .env после тестов
+        rm infra/.env
 
   build_and_push_to_docker_hub:
     name: Push Docker image to Docker Hub
@@ -43,6 +49,8 @@ jobs:
       - name: Push to Docker Hub
         uses: docker/build-push-action@v2 
         with:
+          context: ./api_yamdb
+          file: ./api_yamdb/Dockerfile
           push: true
           tags: fanisgi/yamdb:latest
 
@@ -51,7 +59,7 @@ jobs:
     needs: build_and_push_to_docker_hub
     steps:
       - name: executing remote ssh commands to deploy
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@master  
         with:
           host: ${{ secrets.HOST_IP }}
           username: ${{ secrets.USER_HOST }}
