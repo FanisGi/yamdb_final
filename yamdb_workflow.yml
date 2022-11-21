@@ -20,13 +20,19 @@ jobs:
         # установка зависимостей
         pip install -r api_yamdb/requirements.txt 
     - name: Test with flake8 and django tests
-      infra/.env:
+      env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
       run: |
         # запуск проверки проекта по flake8
         python -m flake8
+        # создаем пустой файл .env
+        touch infra/.env
+        # сохраняем в ней SECRET_KEY
+        echo "${{ secrets.ENV_FILE }}" > infra/.env
         # запустить написанные тесты
         pytest
+        # удаляем .env после тестов
+        rm infra/.env
 
   build_and_push_to_docker_hub:
     name: Push Docker image to Docker Hub
