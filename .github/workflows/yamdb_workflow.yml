@@ -26,7 +26,7 @@ jobs:
         # создаем пустой файл .env
         touch infra/.env
         # сохраняем в ней SECRET_KEY
-        echo "${{ secrets.SECRET_KEY }}" >> infra/.env
+        echo SECRET_KEY="${{ secrets.SECRET_KEY }}" >> infra/.env
         # запустить написанные тесты
         pytest
         # удаляем .env после тестов
@@ -69,13 +69,16 @@ jobs:
             sudo docker-compose stop
             sudo docker-compose rm web
             touch .env
-            echo ${{ secrets.SECRET_KEY }} >> .env
-            echo ${{ secrets.SECRET_KEY }} >> .env
-            echo ${{ secrets.SECRET_KEY }} >> .env
-            echo ${{ secrets.SECRET_KEY }} >> .env
-            echo ${{ secrets.SECRET_KEY }} >> .env
-            echo ${{ secrets.SECRET_KEY }} >> .env
+            echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
+            echo DB_NAME=${{ secrets.DB_NAME }} >> .env
+            echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env
+            echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
+            echo DB_HOST=${{ secrets.DB_HOST }} >> .env
+            echo DB_PORT=${{ secrets.DB_PORT }} >> .env
+            echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
+            echo ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }} >> .env
             sudo docker-compose up -d
+            sudo rm .env
 
   send_message:
     name: send_message_for_workflow
