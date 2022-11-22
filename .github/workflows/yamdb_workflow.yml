@@ -68,13 +68,13 @@ jobs:
           script: |
             sudo docker-compose stop
             sudo docker-compose rm web
-            touch infra/.env
-            echo ${{ secrets.SECRET_KEY }} >> infra/.env
-            echo ${{ secrets.SECRET_KEY }} >> infra/.env
-            echo ${{ secrets.SECRET_KEY }} >> infra/.env
-            echo ${{ secrets.SECRET_KEY }} >> infra/.env
-            echo ${{ secrets.SECRET_KEY }} >> infra/.env
-            echo ${{ secrets.SECRET_KEY }} >> infra/.env
+            touch .env
+            echo ${{ secrets.SECRET_KEY }} >> .env
+            echo ${{ secrets.SECRET_KEY }} >> .env
+            echo ${{ secrets.SECRET_KEY }} >> .env
+            echo ${{ secrets.SECRET_KEY }} >> .env
+            echo ${{ secrets.SECRET_KEY }} >> .env
+            echo ${{ secrets.SECRET_KEY }} >> .env
             sudo docker-compose up -d
 
   send_message:
