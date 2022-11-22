@@ -26,7 +26,7 @@ jobs:
         # создаем пустой файл .env
         touch infra/.env
         # сохраняем в ней SECRET_KEY
-        echo "${{ secrets.SECRET_KEY }}" > infra/.env
+        echo "${{ secrets.SECRET_KEY }}" >> infra/.env
         # запустить написанные тесты
         pytest
         # удаляем .env после тестов
@@ -69,12 +69,12 @@ jobs:
             sudo docker-compose stop
             sudo docker-compose rm web
             touch infra/.env
-            echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> infra/.env
-            echo DB_NAME=${{ secrets.DB_NAME }} >> infra/.env
-            echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> infra/.env
-            echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> infra/.env
-            echo DB_HOST=${{ secrets.DB_HOST }} >> infra/.env
-            echo DB_PORT=${{ secrets.DB_PORT }} >> infra/.env
+            echo ${{ secrets.SECRET_KEY }} >> infra/.env
+            echo ${{ secrets.SECRET_KEY }} >> infra/.env
+            echo ${{ secrets.SECRET_KEY }} >> infra/.env
+            echo ${{ secrets.SECRET_KEY }} >> infra/.env
+            echo ${{ secrets.SECRET_KEY }} >> infra/.env
+            echo ${{ secrets.SECRET_KEY }} >> infra/.env
             sudo docker-compose up -d
 
   send_message:
