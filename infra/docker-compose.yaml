@@ -5,7 +5,7 @@ services:
   db:
     image: postgres:13.0-alpine
     volumes:
-      - ./postgresql_value:/var/lib/postgresql/data/
+      - postgresql_value:/var/lib/postgresql/data/
     env_file:
       - ./.env
   

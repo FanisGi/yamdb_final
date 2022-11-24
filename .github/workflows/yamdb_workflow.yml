@@ -66,8 +66,10 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE_FOR_HOST }}
           script: |
+            sudo systemctl stop nginx
             sudo docker-compose stop
             sudo docker-compose rm web
+            sudo rm .env
             sudo touch .env
             echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
             echo DB_NAME=${{ secrets.DB_NAME }} >> .env
@@ -77,6 +79,7 @@ jobs:
             echo DB_PORT=${{ secrets.DB_PORT }} >> .env
             echo SECRET_KEY="${{ secrets.SECRET_KEY }}" >> .env
             sudo docker-compose up -d
+            sudo docker-compose exec -T web python manage.py collectstatic --no-input
 
   send_message:
     name: send_message_for_workflow
@@ -88,4 +91,4 @@ jobs:
       with:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
-        message: Приложение ${{ github.workflow }} успешно выполщено!
+        message: Приложение ${{ github.workflow }} успешно запущено!
