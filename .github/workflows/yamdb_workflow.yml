@@ -67,6 +67,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE_FOR_HOST }}
           script: |
+            sudo docker pull lizvasilieva2016/yamdb_final
             sudo docker-compose stop
             sudo docker-compose rm web
             sudo rm .env
@@ -79,6 +80,9 @@ jobs:
             echo DB_PORT=${{ secrets.DB_PORT }} >> .env 
             echo SECRET_KEY="${{ secrets.SECRET_KEY }}" >> .env
             sudo docker-compose up -d
+            # sudo docker-compose exec -T web python ./api_yamdb/manage.py makemigrations users
+            # sudo docker-compose exec -T web python ./api_yamdb/manage.py migrate
+            # sudo docker-compose exec -T web python ./api_yamdb/manage.py collectstatic --no-input
 
   send_message:
     name: send_message_for_workflow
