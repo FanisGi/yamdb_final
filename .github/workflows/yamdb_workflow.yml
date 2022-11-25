@@ -67,7 +67,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE_FOR_HOST }}
           script: |
-            sudo docker pull fanisgi/yamdb_final
+            sudo docker pull fanisgi/yamdb
             sudo docker-compose stop
             sudo docker-compose rm web
             sudo rm .env
